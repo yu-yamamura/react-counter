@@ -1,42 +1,18 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import { Button, Card, CardContent, Statistic } from 'semantic-ui-react';
+import { useCounter } from './hooks/useCounter';
 import './Counter.css';
 
-type InjectedProps = {
+type Props = {
+  max: number;
   count: number;
   increment: () => void;
   reset: () => void;
 };
-type Props = { max: number };
 
-const withCounter =
-  (WrappedComponent: (props: Props & Partial<InjectedProps>) => ReactElement) =>
-  ({ max }: Props) => {
-    const [count, setCount] = useState(0);
+type ContainerProps = { max: number };
 
-    const increment = () => setCount((previousCount) => previousCount + 1);
-    const reset = useCallback(() => setCount(0), []);
-
-    useEffect(() => {
-      if (count > max) reset();
-    }, [count, max, reset]);
-
-    return (
-      <WrappedComponent
-        max={max}
-        count={count}
-        reset={reset}
-        increment={increment}
-      />
-    );
-  };
-
-const Counter = ({
-  max,
-  count = 0,
-  increment = () => undefined,
-  reset = () => undefined,
-}: Props & Partial<InjectedProps>) => (
+const Component = ({ max, count, increment, reset }: Props) => (
   <div className="container">
     <header>
       <h1>カウンター</h1>
@@ -62,4 +38,17 @@ const Counter = ({
   </div>
 );
 
-export default withCounter(Counter);
+const CounterComponent = ({ max }: ContainerProps) => {
+  const [count, increment, reset] = useCounter(10);
+  
+  return (
+    <Component
+      max={max}
+      count={count}
+      increment={increment}
+      reset={reset}
+    />
+  );
+}
+
+export default CounterComponent;

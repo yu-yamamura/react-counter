@@ -7,7 +7,7 @@ type InjectedProps = {
   increment: () => void;
   reset: () => void;
 };
-type Props = { max: number; };
+type Props = { max: number };
 
 const withCounter =
   (WrappedComponent: (props: Props & Partial<InjectedProps>) => ReactElement) =>
@@ -44,16 +44,16 @@ const Counter = ({
     <Card>
       <Statistic className="number-board">
         <Statistic.Label>count / max</Statistic.Label>
-        <Statistic.Value>
+        <Statistic.Value data-testid="count-and-max">
           {count} / {max}
         </Statistic.Value>
       </Statistic>
       <CardContent>
-        <div className="ui two buttons">
+        <div>
           <Button color="red" onClick={reset} data-testid="reset">
             Reset
           </Button>
-          <Button color="green" onClick={increment}>
+          <Button color="green" onClick={increment} data-testid="increment">
             +1
           </Button>
         </div>

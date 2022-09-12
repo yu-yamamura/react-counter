@@ -1,6 +1,6 @@
 import React from "react";
-import Counter from "./Counter";
-import "./App.css";
+import Counter from "./components/Counter";
+import "./styles/App.css";
 
 const App = () => (
   <div className="container">

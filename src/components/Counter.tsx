@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Card, CardContent, Statistic } from "semantic-ui-react";
-import { useCounter } from "./hooks/useCounter";
-import "./Counter.css";
+import { useCounter } from "../hooks/useCounter";
+import "../styles/components/Counter.css";
 
 type Props = {
   max: number;
@@ -39,7 +39,7 @@ const Component = ({ max, count, increment, reset }: Props) => (
 );
 
 const CounterComponent = ({ max }: ContainerProps) => {
-  const [count, increment, reset] = useCounter(10);
+  const { count, increment, reset } = useCounter(10);
 
   return (
     <Component max={max} count={count} increment={increment} reset={reset} />

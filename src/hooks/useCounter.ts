@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 
-export const useCounter = (max: number) => {
+export const useCounter = (
+  max: number
+): {
+  count: number;
+  increment: () => void;
+  reset: () => void;
+} => {
   const [count, setCount] = useState(0);
 
   const increment = () => setCount((previousCount) => previousCount + 1);
@@ -10,5 +16,5 @@ export const useCounter = (max: number) => {
     if (count > max) reset();
   }, [count, max, reset]);
 
-  return [count, increment, reset] as const;
-}
+  return { count, increment, reset };
+};
